@@ -65,6 +65,12 @@ class SAPI5Driver(object):
         self._speaking = True
         self._tts.Speak(toUtf8(text), 19)
 
+    def pause(self, mode):
+        raise NotImplementedError()
+
+    def resume(self):
+        raise NotImplementedError()
+
     def stop(self):
         if not self._speaking:
             return

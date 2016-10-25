@@ -140,6 +140,9 @@ class DummyDriver(object):
         self._proxy.notify('finished-utterance', completed=True)
         self._proxy.setBusy(False)
 
+    def pause(self):
+        pass
+
     def stop(self):
         '''
         Stops any current output. If an utterance was being spoken, the driver

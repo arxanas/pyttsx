@@ -113,6 +113,21 @@ class Engine(object):
         '''
         self.proxy.say(text, name)
 
+    def pause(self, mode):
+        '''
+        Pause after speaking the current word.
+
+        Mode must be one of 'immediate', 'word', or 'sentence'. Not all modes
+        may be available, depending on your driver.
+        '''
+        self.proxy.pause(mode)
+
+    def resume(self):
+        '''
+        Resume speaking after having pause.
+        '''
+        self.proxy.resume()
+
     def stop(self):
         '''
         Stops the current utterance and clears the event queue.

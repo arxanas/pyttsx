@@ -54,6 +54,12 @@ class EspeakDriver(object):
         self._proxy.notify('started-utterance')
         _espeak.Synth(toUtf8(text), flags=_espeak.ENDPAUSE | _espeak.CHARS_UTF8)
 
+    def pause(self, mode):
+        raise NotImplementedError()
+
+    def resume(self):
+        raise NotImplementedError()
+
     def stop(self):
         if _espeak.IsPlaying():
             self._stopping = True

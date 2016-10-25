@@ -16,7 +16,12 @@ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 '''
 from Foundation import *
-from AppKit import NSSpeechSynthesizer
+from AppKit import (
+    NSSpeechImmediateBoundary,
+    NSSpeechSentenceBoundary,
+    NSSpeechSynthesizer,
+    NSSpeechWordBoundary,
+)
 from PyObjCTools import AppHelper
 from ..voice import Voice
 
@@ -59,6 +64,17 @@ class NSSpeechDriver(NSObject):
         self._completed = True
         self._proxy.notify('started-utterance')
         self._tts.startSpeakingString_(unicode(text))
+
+    def pause(self, mode):
+        boundary = {
+            'immediate': NSSpeechImmediateBoundary,
+            'word': NSSpeechWordBoundary,
+            'sentence': NSSpeechSentenceBoundary,
+        }[mode]
+        self._tts.pauseSpeakingAtBoundary_(boundary)
+
+    def resume(self):
+        self._tts.continueSpeaking()
 
     def stop(self):
         if self._proxy.isBusy():
